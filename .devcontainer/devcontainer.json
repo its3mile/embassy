@@ -1,0 +1,36 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/rust
+{
+	"name": "embassy-rs-devcontainer",
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "devcontainer-service",
+	"workspaceFolder": "/workspace",
+	"remoteEnv": {
+		"GIT_EDITOR": "code --wait"
+	},
+	"postCreateCommand": "chmod +x .devcontainer/post-create-command.sh && .devcontainer/post-create-command.sh",
+	"initializeCommand": "chmod +x .devcontainer/initialise-command.sh && .devcontainer/initialise-command.sh",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"configureZshAsDefaultShell": true,
+			"installOhMyZsh": true,
+			"installOhMyZshConfig": true
+		}
+	},
+	// Use 'mounts' to make the cargo cache persistent in a Docker Volume.
+	"mounts": [
+		{
+			"source": "devcontainer-cargo-cache-${devcontainerId}",
+			"target": "/usr/local/cargo",
+			"type": "volume"
+		}
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	}
+}
